@@ -9,7 +9,17 @@ interface linksInterface {
 }
 
 export const createLinks = async (link: linksInterface, id: number) => {
-  console.log(link);
+  const findLink = await Url.findOne({
+    where: {
+      title: link.title,
+    },
+  });
+  if (findLink) {
+    return {
+      status: "error",
+      error: "You have add this link already, you can update it",
+    };
+  }
   try {
     const links = await Url.create({
       ...link,

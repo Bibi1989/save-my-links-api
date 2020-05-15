@@ -10,37 +10,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const models = require("../../database/models/");
-const { User, Url } = models;
-exports.createLinks = (link, id) => __awaiter(void 0, void 0, void 0, function* () {
-    const findLink = yield Url.findOne({
-        where: {
-            title: link.title,
-        },
-    });
-    if (findLink) {
-        return {
-            status: "error",
-            error: "You have add this link already, you can update it",
-        };
-    }
+const { User, Url, History } = models;
+exports.createHistory = (history, id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const links = yield Url.create(Object.assign(Object.assign({}, link), { userId: Number(id) }));
-        return { status: "success", data: links };
+        const histories = yield History.create(Object.assign(Object.assign({}, history), { userId: Number(id) }));
+        return { status: "success", data: histories };
     }
     catch (error) {
         console.error(error);
         return { status: "error", error };
     }
 });
-exports.getLinks = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.getHistories = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const links = yield Url.findAll({
+        const histories = yield History.findAll({
             include: [User],
         });
-        return { status: "success", data: links };
+        return { status: "success", data: histories };
     }
     catch (error) {
         return { status: "error", error };
     }
 });
-//# sourceMappingURL=link_controller.js.map
+//# sourceMappingURL=history_controller.js.map

@@ -11,6 +11,7 @@ const app = express();
 
 // imports
 import linksRoute from "./routes/links";
+import historyRoute from "./routes/history";
 import userRoute from "./routes/users";
 
 app.use(cors());
@@ -21,6 +22,7 @@ app.use(cookieParser());
 
 // routes
 app.use("/api/v1/links", linksRoute);
+app.use("/api/v1/history", historyRoute);
 app.use("/auth/v1", userRoute);
 
 // catch 404 and forward to error handler
