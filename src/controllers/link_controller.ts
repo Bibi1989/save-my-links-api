@@ -42,3 +42,23 @@ export const getLinks = async () => {
     return { status: "error", error };
   }
 };
+
+export const deleteLink = async (id: number) => {
+  try {
+    const findLink = await Url.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!findLink) return { status: "error", error: "Cant find this link" };
+    console.log("here");
+    await Url.destroy({
+      where: {
+        id,
+      },
+    });
+    return { status: "success", data: "Link deleted!!!" };
+  } catch (error) {
+    return { status: "error", error };
+  }
+};

@@ -43,4 +43,25 @@ exports.getLinks = () => __awaiter(void 0, void 0, void 0, function* () {
         return { status: "error", error };
     }
 });
+exports.deleteLink = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const findLink = yield Url.findOne({
+            where: {
+                id,
+            },
+        });
+        if (!findLink)
+            return { status: "error", error: "Cant find this link" };
+        console.log("here");
+        yield Url.destroy({
+            where: {
+                id,
+            },
+        });
+        return { status: "success", data: "Link deleted!!!" };
+    }
+    catch (error) {
+        return { status: "error", error };
+    }
+});
 //# sourceMappingURL=link_controller.js.map
