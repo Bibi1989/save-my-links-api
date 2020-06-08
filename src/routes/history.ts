@@ -4,7 +4,7 @@ import authenticate from "./auth";
 
 const router = Router();
 
-router.post("/", async (req: any, res) => {
+router.post("/", authenticate, async (req: any, res) => {
   const body = req.body;
   const { id } = req.user;
   const link = await createHistory(body, id);

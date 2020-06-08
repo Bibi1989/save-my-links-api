@@ -8,11 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const link_controller_1 = require("../controllers/link_controller");
+const auth_1 = __importDefault(require("./auth"));
 const router = express_1.Router();
-router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     const { id } = req.user;
     const link = yield link_controller_1.createLinks(body, id);
