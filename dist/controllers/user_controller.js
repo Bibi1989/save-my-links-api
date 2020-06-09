@@ -50,23 +50,28 @@ exports.createUsers = (user) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.loginUser = (body) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = body;
-    if (!email)
-        return { status: "error", error: "Email field is empty" };
-    if (!password)
-        return { status: "error", error: "Password field is empty" };
-    let user = yield User.findOne({ where: { email } });
-    if (!user.dataValues)
-        return { status: "error", error: `User with ${email} does not exist` };
-    const validPassword = yield bcryptjs_1.default.compare(password, user.dataValues.password);
-    if (!validPassword)
-        return { status: "error", error: "Password is not valid!!!" };
-    const token = jsonwebtoken_1.default.sign({
-        id: user.id,
-        email: user.email,
-        username: user.username,
-    }, process.env.SECRET_KEY);
-    return { status: "success", data: user, token };
+    try {
+        const { email, password } = body;
+        if (!email)
+            return { status: "error", error: "Email field is empty" };
+        if (!password)
+            return { status: "error", error: "Password field is empty" };
+        let user = yield User.findOne({ where: { email } });
+        if (!user.dataValues)
+            return { status: "error", error: `User with ${email} does not exist` };
+        const validPassword = yield bcryptjs_1.default.compare(password, user.dataValues.password);
+        if (!validPassword)
+            return { status: "error", error: "Password is not valid!!!" };
+        const token = jsonwebtoken_1.default.sign({
+            id: user.id,
+            email: user.email,
+            username: user.username,
+        }, process.env.SECRET_KEY);
+        return { status: "success", data: user, token };
+    }
+    catch (error) {
+        return { status: "error", error: error.message };
+    }
 });
 exports.getUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -48,32 +48,36 @@ export const createUsers = async (user: userInterface) => {
 };
 
 export const loginUser = async (body: { email: string; password: string }) => {
-  const { email, password } = body;
-  if (!email) return { status: "error", error: "Email field is empty" };
-  if (!password) return { status: "error", error: "Password field is empty" };
+  try {
+    const { email, password } = body;
+    if (!email) return { status: "error", error: "Email field is empty" };
+    if (!password) return { status: "error", error: "Password field is empty" };
 
-  let user = await User.findOne({ where: { email } });
+    let user = await User.findOne({ where: { email } });
 
-  if (!user.dataValues)
-    return { status: "error", error: `User with ${email} does not exist` };
+    if (!user.dataValues)
+      return { status: "error", error: `User with ${email} does not exist` };
 
-  const validPassword = await bcrypt.compare(
-    password,
-    user.dataValues.password
-  );
+    const validPassword = await bcrypt.compare(
+      password,
+      user.dataValues.password
+    );
 
-  if (!validPassword)
-    return { status: "error", error: "Password is not valid!!!" };
+    if (!validPassword)
+      return { status: "error", error: "Password is not valid!!!" };
 
-  const token = jwt.sign(
-    {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-    },
-    process.env.SECRET_KEY
-  );
-  return { status: "success", data: user, token };
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+      },
+      process.env.SECRET_KEY
+    );
+    return { status: "success", data: user, token };
+  } catch (error) {
+    return { status: "error", error: error.message };
+  }
 };
 
 export const getUsers = async () => {
