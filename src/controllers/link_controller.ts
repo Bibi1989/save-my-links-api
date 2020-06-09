@@ -32,9 +32,10 @@ export const createLinks = async (link: linksInterface, id: number) => {
   }
 };
 
-export const getLinks = async () => {
+export const getLinks = async (id: number) => {
   try {
     const links = await Url.findAll({
+      where: { userId: id },
       include: [User],
     });
     return { status: "success", data: links };

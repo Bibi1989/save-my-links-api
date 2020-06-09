@@ -23,7 +23,8 @@ router.post("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0,
     res.json({ data: link });
 }));
 router.get("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const links = yield link_controller_1.getLinks();
+    const { id } = req.user;
+    const links = yield link_controller_1.getLinks(Number(id));
     res.json({ data: links });
 }));
 router.delete("/:id", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {

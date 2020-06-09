@@ -15,8 +15,9 @@ router.post("/", authenticate, async (req: any, res) => {
   res.json({ data: link });
 });
 
-router.get("/", authenticate, async (req, res) => {
-  const links = await getLinks();
+router.get("/", authenticate, async (req: any, res) => {
+  const { id } = req.user;
+  const links = await getLinks(Number(id));
   res.json({ data: links });
 });
 

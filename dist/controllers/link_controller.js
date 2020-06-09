@@ -32,9 +32,10 @@ exports.createLinks = (link, id) => __awaiter(void 0, void 0, void 0, function* 
         return { status: "error", error };
     }
 });
-exports.getLinks = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.getLinks = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const links = yield Url.findAll({
+            where: { userId: id },
             include: [User],
         });
         return { status: "success", data: links };
