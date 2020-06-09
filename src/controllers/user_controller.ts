@@ -55,7 +55,7 @@ export const loginUser = async (body: { email: string; password: string }) => {
 
     let user = await User.findOne({ where: { email } });
 
-    if (!user.dataValues)
+    if (!user)
       return { status: "error", error: `User with ${email} does not exist` };
 
     const validPassword = await bcrypt.compare(
