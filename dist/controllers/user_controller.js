@@ -56,7 +56,7 @@ exports.loginUser = (body) => __awaiter(void 0, void 0, void 0, function* () {
     if (!password)
         return { status: "error", error: "Password field is empty" };
     let user = yield User.findOne({ where: { email } });
-    if (!user)
+    if (!user.dataValues)
         return { status: "error", error: `User with ${email} does not exist` };
     const validPassword = yield bcryptjs_1.default.compare(password, user.dataValues.password);
     if (!validPassword)
