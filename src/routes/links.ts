@@ -15,12 +15,12 @@ router.post("/", authenticate, async (req: any, res) => {
   res.json({ data: link });
 });
 
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   const links = await getLinks();
   res.json({ data: links });
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticate, async (req, res) => {
   const deleted = await deleteLink(Number(req.params.id));
   res.json({ data: deleted });
 });

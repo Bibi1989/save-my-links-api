@@ -22,11 +22,11 @@ router.post("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0,
     const link = yield link_controller_1.createLinks(body, id);
     res.json({ data: link });
 }));
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const links = yield link_controller_1.getLinks();
     res.json({ data: links });
 }));
-router.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete("/:id", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const deleted = yield link_controller_1.deleteLink(Number(req.params.id));
     res.json({ data: deleted });
 }));

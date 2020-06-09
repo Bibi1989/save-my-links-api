@@ -11,7 +11,7 @@ router.post("/", authenticate, async (req: any, res) => {
   res.json({ data: link });
 });
 
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   const links = await getHistories();
   res.json({ data: links });
 });

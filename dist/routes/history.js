@@ -22,7 +22,7 @@ router.post("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0,
     const link = yield history_controller_1.createHistory(body, id);
     res.json({ data: link });
 }));
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const links = yield history_controller_1.getHistories();
     res.json({ data: links });
 }));
